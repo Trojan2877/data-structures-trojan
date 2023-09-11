@@ -8,6 +8,6 @@ public class SolutionDSA {
         int res = sol.bestStock(input);
         long stopTime = System.nanoTime();   
         System.out.println(res);
-        System.out.println("Execution Time -----> " + String.valueOf(stopTime - startTime) + "nanoSeconds");
+        System.out.println("Execution Time -----> " + String.valueOf(stopTime - startTime) + "nanoS");
     }
 }
