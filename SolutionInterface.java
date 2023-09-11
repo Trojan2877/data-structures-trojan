@@ -28,4 +28,10 @@ public interface SolutionInterface {
     public int majorityElement(int[] input);
 
     public int bestStock(int[] prices);
+
+    public int romanToInt(String s);
+
+    public int lengthOfLastWord(String s);
+
+    public String longestCommonPrefix(String[] strs);
 }

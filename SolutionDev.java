@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 
 public class SolutionDev implements SolutionInterface {
 
@@ -241,4 +242,73 @@ public class SolutionDev implements SolutionInterface {
         }
         return maxProfit;
     }
+
+    // Roman to integer
+    @Override
+    public int romanToInt(String s) {
+        Map<Character, Integer> romanMap = getMap();
+        List<Integer> resList = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            resList.add(romanMap.get(s.charAt(i)));
+        }
+        int sum = 0;
+        for (int i = 0; i < resList.size(); i++) {
+            try {
+                if (resList.get(i) == 1 && (resList.get(i + 1) == 5 || resList.get(i + 1) == 10)){
+                    sum += (resList.get(i + 1) - resList.get(i));
+                    i++;
+                }
+                else if (resList.get(i) == 10 && (resList.get(i + 1) == 50 || resList.get(i + 1) == 100)){
+                    sum += (resList.get(i + 1) - resList.get(i));
+                    i++;
+                }
+                else if (resList.get(i) == 100 && (resList.get(i + 1) == 500 || resList.get(i + 1) == 1000)){
+                    sum += (resList.get(i + 1) - resList.get(i));
+                    i++;
+                }
+                else
+                    sum += resList.get(i);
+            }
+            catch(IndexOutOfBoundsException e){
+                sum += resList.get(i);
+            }
+        }
+        return sum;
+    }
+
+    private Map<Character, Integer> getMap() {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+        return map;
+    }
+
+    // Length of last word of a string
+    @Override
+    public int lengthOfLastWord(String s){
+        String[] str = s.split(" ");
+        return str[str.length-1].length();
+    }
+
+    // Longest common prefix
+    @Override
+    public String longestCommonPrefix(String[] strs) {
+       StringBuilder res = new StringBuilder();
+       Arrays.sort(strs);
+       String first = strs[0];
+       String last = strs[strs.length-1];
+       for(int i = 0; i < Math.min(first.length(), last.length()); i++){
+            if(first.charAt(i) != last.charAt(i))
+                return res.toString();
+            res.append(last.charAt(i));
+       }
+       return res.toString();
+    }
+
+    
 }
