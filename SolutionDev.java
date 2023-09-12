@@ -120,6 +120,35 @@ public class SolutionDev implements SolutionInterface {
         return sum;
     }
 
+
+    //Candy Implementation alternative approach
+    @Override
+    public int candy1(int[] ratings){
+        int[] LtoR = new int[ratings.length];
+        int[] RtoL = new int[ratings.length];
+        int[] res = new int[ratings.length];
+        for(int i = 0; i < ratings.length; i++){
+            LtoR[i] = RtoL[i] = 1;
+        }
+        for(int i = 1; i < ratings.length; i++){
+            if(ratings[i] > ratings[i-1]){
+                LtoR[i] = LtoR[i+1] + 1;
+            }
+        }
+
+        for(int i = ratings.length-2; i >= 0; i--){
+            if(ratings[i] > ratings[i+1]){
+                RtoL[i] = RtoL[i] + 1;
+            }
+        }
+        int sum = 0;
+        for(int i = 0; i < ratings.length; i++){
+            res[i] = Math.max(LtoR[i], RtoL[i]);
+            sum += res[i];
+        }
+        return sum;
+    }
+
     // Product except self
     // Given an array of n integers where n >1, nums, return an array output such
     // that output[i] is equal to the product
@@ -310,5 +339,55 @@ public class SolutionDev implements SolutionInterface {
        return res.toString();
     }
 
-    
+    // Needle in a haystack
+    @Override
+    public int strStr(String haystack, String needle){
+        return haystack.indexOf(needle);
+    }
+
+    // Alternate impl
+    @Override
+    public int needleInHaystack(String haystack, String needle){
+        int j = 0;
+        if(haystack.length() < needle.length()){
+            return -1;
+        }
+        for(int i = 0; i <= haystack.length()-needle.length(); i++){
+            j = 0;
+            while(j < needle.length() && haystack.charAt(i+j) == needle.charAt(i))
+                j++;
+            if(j == needle.length())
+                return i;
+        }
+        return -1;
+    }
+
+    // Valid palindrome?
+    @Override
+    public boolean validPalindrome(String s){
+        s = s.toLowerCase().replaceAll("[^a-zA-Z0-9]","");
+        char[] arr = s.toCharArray();
+        for(int i = 0, j = arr.length-1; i <= arr.length/2 && j >= arr.length/2; i++, j--){
+            if(arr[i] != arr[j])
+                return false;
+        }
+        return true;
+    }
+
+    // Is Squence?
+    @Override
+    public boolean isSubsequence(String s, String t){
+
+        // Interate over t
+            // Iterate over s
+                // check if sindex = tindex
+                // if true
+                    // increment tindex and sindex
+                // if false
+                    // reset sindex and increment tindex to tindex+1
+                // if s is iterated completely
+                    // return true
+
+        return false;
+    }
 }

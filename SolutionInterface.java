@@ -34,4 +34,14 @@ public interface SolutionInterface {
     public int lengthOfLastWord(String s);
 
     public String longestCommonPrefix(String[] strs);
+
+    public int strStr(String haystack, String needle);
+
+    public int needleInHaystack(String haystack, String needle);
+
+    public int candy1(int[] ratings);
+
+    public boolean validPalindrome(String s);
+
+    public boolean isSubsequence(String s, String t);
 }
