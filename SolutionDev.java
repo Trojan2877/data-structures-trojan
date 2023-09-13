@@ -377,17 +377,37 @@ public class SolutionDev implements SolutionInterface {
     // Is Squence?
     @Override
     public boolean isSubsequence(String s, String t){
-
-        // Interate over t
-            // Iterate over s
-                // check if sindex = tindex
-                // if true
-                    // increment tindex and sindex
-                // if false
-                    // reset sindex and increment tindex to tindex+1
-                // if s is iterated completely
-                    // return true
-
+        int j = 0;
+        if(s.length() == 0)
+            return true;
+        for(int i = 0; i < s.length(); i++){
+            while(j < t.length()){
+                if(s.charAt(i) == t.charAt(j)){
+                    if(i == s.length()-1)
+                        return true;
+                    j++;
+                    break;
+                }
+                j++;
+            }
+        }
         return false;
+    }
+
+    // Ransom & magzine?
+    @Override
+    public boolean canConstruct(String ransomNote, String magazine){
+        HashMap<Character, Integer> mapRan = new HashMap<>();
+        for(int i = 0; i < magazine.length(); i++)
+            mapRan.put(magazine.charAt(i), mapRan.getOrDefault(magazine.charAt(i), 0) + 1);
+        
+        for(int i = 0; i < ransomNote.length(); i++){
+            if(!mapRan.containsKey(ransomNote.charAt(i)) || mapRan.get(ransomNote.charAt(i)) == 0){
+                return false;
+            }
+            mapRan.put(ransomNote.charAt(i), mapRan.get(ransomNote.charAt(i)) - 1);
+        }
+        return true;
+
     }
 }

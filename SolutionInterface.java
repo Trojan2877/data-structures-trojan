@@ -44,4 +44,6 @@ public interface SolutionInterface {
     public boolean validPalindrome(String s);
 
     public boolean isSubsequence(String s, String t);
+
+    public boolean canConstruct(String ransomNote, String magazine);
 }
