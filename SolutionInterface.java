@@ -46,4 +46,8 @@ public interface SolutionInterface {
     public boolean isSubsequence(String s, String t);
 
     public boolean canConstruct(String ransomNote, String magazine);
+
+    public boolean isIsomorphic(String s, String t);
+
+    public boolean wordPattern(String pattern, String s);
 }

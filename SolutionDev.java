@@ -120,29 +120,28 @@ public class SolutionDev implements SolutionInterface {
         return sum;
     }
 
-
-    //Candy Implementation alternative approach
+    // Candy Implementation alternative approach
     @Override
-    public int candy1(int[] ratings){
+    public int candy1(int[] ratings) {
         int[] LtoR = new int[ratings.length];
         int[] RtoL = new int[ratings.length];
         int[] res = new int[ratings.length];
-        for(int i = 0; i < ratings.length; i++){
+        for (int i = 0; i < ratings.length; i++) {
             LtoR[i] = RtoL[i] = 1;
         }
-        for(int i = 1; i < ratings.length; i++){
-            if(ratings[i] > ratings[i-1]){
-                LtoR[i] = LtoR[i+1] + 1;
+        for (int i = 1; i < ratings.length; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                LtoR[i] = LtoR[i + 1] + 1;
             }
         }
 
-        for(int i = ratings.length-2; i >= 0; i--){
-            if(ratings[i] > ratings[i+1]){
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1]) {
                 RtoL[i] = RtoL[i] + 1;
             }
         }
         int sum = 0;
-        for(int i = 0; i < ratings.length; i++){
+        for (int i = 0; i < ratings.length; i++) {
             res[i] = Math.max(LtoR[i], RtoL[i]);
             sum += res[i];
         }
@@ -283,22 +282,18 @@ public class SolutionDev implements SolutionInterface {
         int sum = 0;
         for (int i = 0; i < resList.size(); i++) {
             try {
-                if (resList.get(i) == 1 && (resList.get(i + 1) == 5 || resList.get(i + 1) == 10)){
+                if (resList.get(i) == 1 && (resList.get(i + 1) == 5 || resList.get(i + 1) == 10)) {
                     sum += (resList.get(i + 1) - resList.get(i));
                     i++;
-                }
-                else if (resList.get(i) == 10 && (resList.get(i + 1) == 50 || resList.get(i + 1) == 100)){
+                } else if (resList.get(i) == 10 && (resList.get(i + 1) == 50 || resList.get(i + 1) == 100)) {
                     sum += (resList.get(i + 1) - resList.get(i));
                     i++;
-                }
-                else if (resList.get(i) == 100 && (resList.get(i + 1) == 500 || resList.get(i + 1) == 1000)){
+                } else if (resList.get(i) == 100 && (resList.get(i + 1) == 500 || resList.get(i + 1) == 1000)) {
                     sum += (resList.get(i + 1) - resList.get(i));
                     i++;
-                }
-                else
+                } else
                     sum += resList.get(i);
-            }
-            catch(IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 sum += resList.get(i);
             }
         }
@@ -319,44 +314,44 @@ public class SolutionDev implements SolutionInterface {
 
     // Length of last word of a string
     @Override
-    public int lengthOfLastWord(String s){
+    public int lengthOfLastWord(String s) {
         String[] str = s.split(" ");
-        return str[str.length-1].length();
+        return str[str.length - 1].length();
     }
 
     // Longest common prefix
     @Override
     public String longestCommonPrefix(String[] strs) {
-       StringBuilder res = new StringBuilder();
-       Arrays.sort(strs);
-       String first = strs[0];
-       String last = strs[strs.length-1];
-       for(int i = 0; i < Math.min(first.length(), last.length()); i++){
-            if(first.charAt(i) != last.charAt(i))
+        StringBuilder res = new StringBuilder();
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        for (int i = 0; i < Math.min(first.length(), last.length()); i++) {
+            if (first.charAt(i) != last.charAt(i))
                 return res.toString();
             res.append(last.charAt(i));
-       }
-       return res.toString();
+        }
+        return res.toString();
     }
 
     // Needle in a haystack
     @Override
-    public int strStr(String haystack, String needle){
+    public int strStr(String haystack, String needle) {
         return haystack.indexOf(needle);
     }
 
     // Alternate impl
     @Override
-    public int needleInHaystack(String haystack, String needle){
+    public int needleInHaystack(String haystack, String needle) {
         int j = 0;
-        if(haystack.length() < needle.length()){
+        if (haystack.length() < needle.length()) {
             return -1;
         }
-        for(int i = 0; i <= haystack.length()-needle.length(); i++){
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
             j = 0;
-            while(j < needle.length() && haystack.charAt(i+j) == needle.charAt(i))
+            while (j < needle.length() && haystack.charAt(i + j) == needle.charAt(i))
                 j++;
-            if(j == needle.length())
+            if (j == needle.length())
                 return i;
         }
         return -1;
@@ -364,11 +359,11 @@ public class SolutionDev implements SolutionInterface {
 
     // Valid palindrome?
     @Override
-    public boolean validPalindrome(String s){
-        s = s.toLowerCase().replaceAll("[^a-zA-Z0-9]","");
+    public boolean validPalindrome(String s) {
+        s = s.toLowerCase().replaceAll("[^a-zA-Z0-9]", "");
         char[] arr = s.toCharArray();
-        for(int i = 0, j = arr.length-1; i <= arr.length/2 && j >= arr.length/2; i++, j--){
-            if(arr[i] != arr[j])
+        for (int i = 0, j = arr.length - 1; i <= arr.length / 2 && j >= arr.length / 2; i++, j--) {
+            if (arr[i] != arr[j])
                 return false;
         }
         return true;
@@ -376,14 +371,14 @@ public class SolutionDev implements SolutionInterface {
 
     // Is Squence?
     @Override
-    public boolean isSubsequence(String s, String t){
+    public boolean isSubsequence(String s, String t) {
         int j = 0;
-        if(s.length() == 0)
+        if (s.length() == 0)
             return true;
-        for(int i = 0; i < s.length(); i++){
-            while(j < t.length()){
-                if(s.charAt(i) == t.charAt(j)){
-                    if(i == s.length()-1)
+        for (int i = 0; i < s.length(); i++) {
+            while (j < t.length()) {
+                if (s.charAt(i) == t.charAt(j)) {
+                    if (i == s.length() - 1)
                         return true;
                     j++;
                     break;
@@ -396,18 +391,67 @@ public class SolutionDev implements SolutionInterface {
 
     // Ransom & magzine?
     @Override
-    public boolean canConstruct(String ransomNote, String magazine){
+    public boolean canConstruct(String ransomNote, String magazine) {
         HashMap<Character, Integer> mapRan = new HashMap<>();
-        for(int i = 0; i < magazine.length(); i++)
+        for (int i = 0; i < magazine.length(); i++)
             mapRan.put(magazine.charAt(i), mapRan.getOrDefault(magazine.charAt(i), 0) + 1);
-        
-        for(int i = 0; i < ransomNote.length(); i++){
-            if(!mapRan.containsKey(ransomNote.charAt(i)) || mapRan.get(ransomNote.charAt(i)) == 0){
+
+        for (int i = 0; i < ransomNote.length(); i++) {
+            if (!mapRan.containsKey(ransomNote.charAt(i)) || mapRan.get(ransomNote.charAt(i)) == 0) {
                 return false;
             }
             mapRan.put(ransomNote.charAt(i), mapRan.get(ransomNote.charAt(i)) - 1);
         }
         return true;
 
+    }
+
+    // is isomprphic?
+    @Override
+    public boolean isIsomorphic(String s, String t) {
+        Map<Character, Character> map = new HashMap<>();
+        if(s.length() != t.length())
+            return false;
+        for(int i = 0; i < s.length(); i++){
+            char sCh = s.charAt(i);
+            char tCh = t.charAt(i);
+            if(map.containsKey(sCh)){
+                if(map.get(sCh) != tCh){
+                    return false;
+                }
+            }
+            else if(map.containsValue(tCh)){
+                return false;
+            }
+            else{
+                map.put(sCh, tCh);
+            }
+        }
+        return true;
+    }
+
+    // Word Pattern
+    @Override
+    public boolean wordPattern(String pattern, String s){
+        Map<Character, String> map = new HashMap<>();
+        String[] str = s.split(" ");
+        if(str.length != pattern.length())
+            return false;
+        for(int i = 0; i < pattern.length(); i++){
+            char c = pattern.charAt(i);
+            String string = str[i];
+            if(map.containsKey(c)){
+                if(map.get(c) != string){
+                    return false;
+                }
+                else if(map.containsValue(string)){
+                    return false;
+                }
+                else{
+                    map.put(c, string);
+                }
+            }
+        }
+        return true;
     }
 }
