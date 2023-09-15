@@ -410,20 +410,18 @@ public class SolutionDev implements SolutionInterface {
     @Override
     public boolean isIsomorphic(String s, String t) {
         Map<Character, Character> map = new HashMap<>();
-        if(s.length() != t.length())
+        if (s.length() != t.length())
             return false;
-        for(int i = 0; i < s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             char sCh = s.charAt(i);
             char tCh = t.charAt(i);
-            if(map.containsKey(sCh)){
-                if(map.get(sCh) != tCh){
+            if (map.containsKey(sCh)) {
+                if (map.get(sCh) != tCh) {
                     return false;
                 }
-            }
-            else if(map.containsValue(tCh)){
+            } else if (map.containsValue(tCh)) {
                 return false;
-            }
-            else{
+            } else {
                 map.put(sCh, tCh);
             }
         }
@@ -432,26 +430,62 @@ public class SolutionDev implements SolutionInterface {
 
     // Word Pattern
     @Override
-    public boolean wordPattern(String pattern, String s){
+    public boolean wordPattern(String pattern, String s) {
         Map<Character, String> map = new HashMap<>();
         String[] str = s.split(" ");
-        if(str.length != pattern.length())
+        if (str.length != pattern.length())
             return false;
-        for(int i = 0; i < pattern.length(); i++){
+        for (int i = 0; i < pattern.length(); i++) {
             char c = pattern.charAt(i);
             String string = str[i];
-            if(map.containsKey(c)){
-                if(map.get(c) != string){
+            if (map.containsKey(c)) {
+                if (!map.get(c).equals(string)) {
                     return false;
                 }
-                else if(map.containsValue(string)){
-                    return false;
-                }
-                else{
-                    map.put(c, string);
-                }
+            } else if (map.containsValue(string)) {
+                return false;
+            } else {
+                map.put(c, string);
             }
         }
         return true;
+    }
+
+    // Valid Anagram
+    @Override
+    public boolean isAnagram(String s, String t){
+        if(s.length() != t.length())
+            return false;
+
+        Map<Character, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < s.length(); i++){
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
+        }
+
+        for(int i = 0; i < s.length(); i++){
+            if(map.get(s.charAt(i)) != 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    // Two Sum
+    @Override
+    public int[] twoSum(int[] nums, int target){
+        int numLength = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < numLength; i++){
+            int complement = target - nums[i];
+            if(map.containsKey(complement)){
+                if(map.containsKey(complement) && map.get(complement) != i){
+                    return new int[]{i, map.get(complement)};
+                }
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
     }
 }

@@ -50,4 +50,8 @@ public interface SolutionInterface {
     public boolean isIsomorphic(String s, String t);
 
     public boolean wordPattern(String pattern, String s);
+
+    public boolean isAnagram(String s, String t);
+
+    public int[] twoSum(int[] nums, int target);
 }
