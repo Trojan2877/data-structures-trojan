@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class SolutionDev implements SolutionInterface {
@@ -182,7 +185,7 @@ public class SolutionDev implements SolutionInterface {
             val = new StringBuilder();
             int start = input[j];
             val.append(String.valueOf(start));
-            val.append(" -> ");
+            val.append("->");
             while (j < input.length - 1 && input[j] + 1 == input[j + 1]) {
                 j++;
             }
@@ -487,5 +490,68 @@ public class SolutionDev implements SolutionInterface {
             map.put(nums[i], i);
         }
         return new int[]{-1, -1};
+    }
+
+    
+    // Happy Number
+    @Override
+    public boolean isHappy(int n){
+
+        Map<Integer, Integer> map = new HashMap<>();
+        while(n != 1 && !map.containsKey(n)){
+            map.put(n, 0);
+            n = sum(n);
+        }
+        return n == 1;
+    }
+
+    // Happy Number util
+    private int sum(int n){
+
+        int sum = 0;
+        while (n > 0){
+            int m = n % 10;
+            sum += m * m;
+            n /= 10;
+        }
+        return sum;
+    }
+
+    // Valida paranthesis
+    @Override
+    public boolean isValid(String s){
+        Map <Character, Character> map = new HashMap<>();
+        Stack<Character> keyStack = new Stack<>();
+        map.put('(',')');
+        map.put('[',']');
+        map.put('{','}');
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if(map.containsKey(c))
+                keyStack.push(c);
+            if(keyStack.isEmpty() || (map.containsValue(c) && c != map.get(keyStack.pop()))){
+                return false;
+            }
+        }
+
+        return keyStack.isEmpty();
+    }
+
+    // Merge 2 sorted linkedlist
+    @Override
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2){
+        if(list1 != null && list2 != null){
+            if(list1.val < list2.val){
+                list1.next = mergeTwoLists(list1.next, list2);
+                return list1;
+            }
+            else{
+                list2.next = mergeTwoLists(list1, list2.next);
+                return list2;
+            }
+        }
+        if(list1 == null)
+            return list2;
+        return list1;
     }
 }

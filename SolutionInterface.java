@@ -54,4 +54,10 @@ public interface SolutionInterface {
     public boolean isAnagram(String s, String t);
 
     public int[] twoSum(int[] nums, int target);
+
+    public boolean isHappy(int n);
+
+    public boolean isValid(String s);
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2);
 }
