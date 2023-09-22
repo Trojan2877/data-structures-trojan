@@ -456,19 +456,19 @@ public class SolutionDev implements SolutionInterface {
 
     // Valid Anagram
     @Override
-    public boolean isAnagram(String s, String t){
-        if(s.length() != t.length())
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length())
             return false;
 
         Map<Character, Integer> map = new HashMap<>();
-        
-        for(int i = 0; i < s.length(); i++){
+
+        for (int i = 0; i < s.length(); i++) {
             map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
             map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
         }
 
-        for(int i = 0; i < s.length(); i++){
-            if(map.get(s.charAt(i)) != 0)
+        for (int i = 0; i < s.length(); i++) {
+            if (map.get(s.charAt(i)) != 0)
                 return false;
         }
 
@@ -477,28 +477,25 @@ public class SolutionDev implements SolutionInterface {
 
     // Two Sum
     @Override
-    public int[] twoSum(int[] nums, int target){
+    public int[] twoSum(int[] nums, int target) {
         int numLength = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < numLength; i++){
+        for (int i = 0; i < numLength; i++) {
             int complement = target - nums[i];
-            if(map.containsKey(complement)){
-                if(map.containsKey(complement) && map.get(complement) != i){
-                    return new int[]{i, map.get(complement)};
-                }
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[] { i, map.get(complement) };
             }
             map.put(nums[i], i);
         }
-        return new int[]{-1, -1};
+        return new int[] { -1, -1 };
     }
 
-    
     // Happy Number
     @Override
-    public boolean isHappy(int n){
+    public boolean isHappy(int n) {
 
         Map<Integer, Integer> map = new HashMap<>();
-        while(n != 1 && !map.containsKey(n)){
+        while (n != 1 && !map.containsKey(n)) {
             map.put(n, 0);
             n = sum(n);
         }
@@ -506,10 +503,10 @@ public class SolutionDev implements SolutionInterface {
     }
 
     // Happy Number util
-    private int sum(int n){
+    private int sum(int n) {
 
         int sum = 0;
-        while (n > 0){
+        while (n > 0) {
             int m = n % 10;
             sum += m * m;
             n /= 10;
@@ -519,17 +516,17 @@ public class SolutionDev implements SolutionInterface {
 
     // Valida paranthesis
     @Override
-    public boolean isValid(String s){
-        Map <Character, Character> map = new HashMap<>();
+    public boolean isValid(String s) {
+        Map<Character, Character> map = new HashMap<>();
         Stack<Character> keyStack = new Stack<>();
-        map.put('(',')');
-        map.put('[',']');
-        map.put('{','}');
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
         char[] chars = s.toCharArray();
         for (char c : chars) {
-            if(map.containsKey(c))
+            if (map.containsKey(c))
                 keyStack.push(c);
-            if(keyStack.isEmpty() || (map.containsValue(c) && c != map.get(keyStack.pop()))){
+            if (keyStack.isEmpty() || (map.containsValue(c) && c != map.get(keyStack.pop()))) {
                 return false;
             }
         }
@@ -539,19 +536,97 @@ public class SolutionDev implements SolutionInterface {
 
     // Merge 2 sorted linkedlist
     @Override
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2){
-        if(list1 != null && list2 != null){
-            if(list1.val < list2.val){
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
                 list1.next = mergeTwoLists(list1.next, list2);
                 return list1;
-            }
-            else{
+            } else {
                 list2.next = mergeTwoLists(list1, list2.next);
                 return list2;
             }
         }
-        if(list1 == null)
+        if (list1 == null)
             return list2;
         return list1;
+    }
+
+    // Reverse a String in place
+    @Override
+    public String reverseString(String str){
+        char[] chars = str.toCharArray();
+        for(int i = 0, j = chars.length - 1 ; i <= j ; i++, j--){
+            char temp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = temp;
+        }
+        str = new String(chars);
+        return str;
+    }
+
+    // Majority element : Element more than N / 2
+    @Override
+    public int majorityElement1(int[] nums){
+        int max = nums.length / 2;
+        if(nums.length == 1){
+            return nums[0];
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : nums) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+            if(map.get(i) > max){
+                return i;
+            }
+        }
+        // return -1 if no such element exists
+        return -1;
+    }
+
+    // Find the largest element in an integer array
+    @Override
+    public int LargestElement(int[] nums){
+        if(nums.length == 1)
+            return nums[0];
+        int max = Integer.MIN_VALUE;
+        for(int i : nums){
+            max = Math.max(i, max);
+        }
+        return max;
+    }
+
+    // Find the 2nd largest element in the array
+    @Override
+    public int secondLargest(int[] nums){
+        if(nums.length < 2)
+            return -1;
+        int max = Integer.MIN_VALUE;
+        int secondMax = max;
+        for (int i : nums) {
+            if(i > max){
+            secondMax = max;
+            max = i;
+            }
+            else if(i > secondMax && i != max){
+                secondMax = i;
+            }
+        }
+        if(secondMax == Integer.MIN_VALUE)
+            return -1;
+        return secondMax;
+    }
+
+    // Max subarray sum.
+    @Override
+    public int maxSubArray(int[] nums){
+        if(nums.length < 1)
+            return 0;
+        int current = nums[0];
+        int max = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            current = Math.max(nums[i], current + nums[i]);
+            max = Math.max(current, max);
+        }
+
+        return max;
     }
 }

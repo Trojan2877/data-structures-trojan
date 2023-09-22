@@ -60,4 +60,14 @@ public interface SolutionInterface {
     public boolean isValid(String s);
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2);
+
+    public String reverseString(String str);
+
+    public int majorityElement1(int[] arr);
+
+    public int LargestElement(int[] nums);
+
+    public int secondLargest(int[] nums);
+
+    public int maxSubArray(int[] nums);
 }
