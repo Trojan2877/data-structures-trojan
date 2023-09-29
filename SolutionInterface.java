@@ -70,4 +70,6 @@ public interface SolutionInterface {
     public int secondLargest(int[] nums);
 
     public int maxSubArray(int[] nums);
+
+    public int lengthOfLongestSubstring(String s);
 }

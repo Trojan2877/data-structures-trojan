@@ -553,9 +553,9 @@ public class SolutionDev implements SolutionInterface {
 
     // Reverse a String in place
     @Override
-    public String reverseString(String str){
+    public String reverseString(String str) {
         char[] chars = str.toCharArray();
-        for(int i = 0, j = chars.length - 1 ; i <= j ; i++, j--){
+        for (int i = 0, j = chars.length - 1; i <= j; i++, j--) {
             char temp = chars[i];
             chars[i] = chars[j];
             chars[j] = temp;
@@ -566,15 +566,15 @@ public class SolutionDev implements SolutionInterface {
 
     // Majority element : Element more than N / 2
     @Override
-    public int majorityElement1(int[] nums){
+    public int majorityElement1(int[] nums) {
         int max = nums.length / 2;
-        if(nums.length == 1){
+        if (nums.length == 1) {
             return nums[0];
         }
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i : nums) {
             map.put(i, map.getOrDefault(i, 0) + 1);
-            if(map.get(i) > max){
+            if (map.get(i) > max) {
                 return i;
             }
         }
@@ -584,11 +584,11 @@ public class SolutionDev implements SolutionInterface {
 
     // Find the largest element in an integer array
     @Override
-    public int LargestElement(int[] nums){
-        if(nums.length == 1)
+    public int LargestElement(int[] nums) {
+        if (nums.length == 1)
             return nums[0];
         int max = Integer.MIN_VALUE;
-        for(int i : nums){
+        for (int i : nums) {
             max = Math.max(i, max);
         }
         return max;
@@ -596,37 +596,63 @@ public class SolutionDev implements SolutionInterface {
 
     // Find the 2nd largest element in the array
     @Override
-    public int secondLargest(int[] nums){
-        if(nums.length < 2)
+    public int secondLargest(int[] nums) {
+        if (nums.length < 2)
             return -1;
         int max = Integer.MIN_VALUE;
         int secondMax = max;
         for (int i : nums) {
-            if(i > max){
-            secondMax = max;
-            max = i;
-            }
-            else if(i > secondMax && i != max){
+            if (i > max) {
+                secondMax = max;
+                max = i;
+            } else if (i > secondMax && i != max) {
                 secondMax = i;
             }
         }
-        if(secondMax == Integer.MIN_VALUE)
+        if (secondMax == Integer.MIN_VALUE)
             return -1;
         return secondMax;
     }
 
     // Max subarray sum.
     @Override
-    public int maxSubArray(int[] nums){
-        if(nums.length < 1)
+    public int maxSubArray(int[] nums) {
+        if (nums.length < 1)
             return 0;
         int current = nums[0];
         int max = nums[0];
-        for(int i = 1; i < nums.length; i++){
+        for (int i = 1; i < nums.length; i++) {
             current = Math.max(nums[i], current + nums[i]);
             max = Math.max(current, max);
         }
 
+        return max;
+    }
+
+    // Longest non recurring substring
+    @Override
+    public int lengthOfLongestSubstring(String s) {
+        int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        char[] chars = s.toCharArray();
+        int end = chars.length;
+        for(int i = 0; i < end; i++){
+            int count = 0;
+            int j = i;
+            while(j < end){
+                if(!map.containsKey(chars[j])){
+                count++;
+                map.put(chars[j], 1);
+                }
+                else{
+                    map = new HashMap<>();
+                    i = j-1;
+                    break;
+                }
+                j++;
+                max = Math.max(max, count);
+            }
+        }
         return max;
     }
 }
